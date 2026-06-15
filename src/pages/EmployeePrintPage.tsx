@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useEmployeeStore } from '@/store/useEmployeeStore';
 import { formatDateCN, formatDate } from '@/utils/dateUtils';
 import { formatFileSize } from '@/utils/fileUtils';
-import { Building2, UserCircle2, FileSignature, GitBranchHorizontal, ClipboardList, Loader2 } from 'lucide-react';
+import { Building2, UserCircle2, FileSignature, GitBranch, ClipboardList, Loader2 } from 'lucide-react';
 
 const DEFAULT_EMPLOYEE_ID = 'EMP20210315';
 
@@ -210,7 +210,7 @@ export default function EmployeePrintPage() {
 
         <section className="mb-8">
           <div className="flex items-center gap-2 mb-4 pb-2 border-b border-slate-200">
-            <GitBranchHorizontal className="w-4 h-4 text-indigo-700" />
+            <GitBranch className="w-4 h-4 text-indigo-700" />
             <h2 className="text-base font-bold text-slate-900">三、最近异动记录</h2>
           </div>
           <div className="space-y-0">

@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useEffect, type ReactNode } from 'react';
-import { UserCircle2, FileSignature, GitBranchHorizontal, Paperclip } from 'lucide-react';
+import { UserCircle2, FileSignature, GitBranch, Paperclip } from 'lucide-react';
 import type { TabKey } from '@/types/employee';
 
 interface TabItem {
@@ -17,7 +17,7 @@ interface TabContainerProps {
 const ICON_MAP: Record<TabKey, typeof UserCircle2> = {
   basic: UserCircle2,
   contract: FileSignature,
-  change: GitBranchHorizontal,
+  change: GitBranch,
   attachment: Paperclip,
 };
 
