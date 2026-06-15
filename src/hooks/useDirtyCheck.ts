@@ -1,25 +1,42 @@
 import { useEffect, useRef } from 'react';
+import { useBeforeUnload, useBlocker } from 'react-router-dom';
 
 export function useDirtyCheck(
   hasUnsavedChanges: boolean,
-  _onConfirm?: () => Promise<boolean> | boolean
+  onConfirm?: () => Promise<boolean> | boolean
 ) {
-  const hasChangesRef = useRef(hasUnsavedChanges);
-  hasChangesRef.current = hasUnsavedChanges;
+  const onConfirmRef = useRef(onConfirm);
+  onConfirmRef.current = onConfirm;
+
+  useBeforeUnload(
+    (event) => {
+      if (hasUnsavedChanges) {
+        event.preventDefault();
+        event.returnValue = '';
+      }
+    },
+    { capture: true }
+  );
+
+  const blocker = useBlocker(
+    () =>
+      hasUnsavedChanges
+        ? '您有未保存的修改，确定要离开吗？未保存的内容将会丢失。'
+        : false
+  );
 
   useEffect(() => {
-    const handler = (event: BeforeUnloadEvent) => {
-      if (hasChangesRef.current) {
-        event.preventDefault();
-        event.returnValue =
-          '您有未保存的修改，确定要离开吗？未保存的内容将会丢失。';
-        return event.returnValue;
+    if (blocker.state === 'blocked') {
+      const confirmed = window.confirm(
+        '您有未保存的修改，确定要离开吗？\n\n点击「确定」放弃未保存修改并离开，点击「取消」留在此页面。'
+      );
+      if (confirmed) {
+        blocker.proceed();
+      } else {
+        blocker.reset();
       }
-    };
+    }
+  }, [blocker]);
 
-    window.addEventListener('beforeunload', handler);
-    return () => window.removeEventListener('beforeunload', handler);
-  }, []);
-
-  return { state: 'idle', proceed: () => {}, reset: () => {} };
+  return blocker;
 }

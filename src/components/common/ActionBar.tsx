@@ -1,4 +1,4 @@
-import { ChevronLeft, PencilLine, Save, XCircle, Printer, Shield, Eye, FileEdit, BadgeCheck } from 'lucide-react';
+import { ChevronLeft, PencilLine, FloppyDisk, XCircle, Printer, Shield, Eye, FileEdit, BadgeCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useEmployeeStore } from '@/store/useEmployeeStore';
 
@@ -153,7 +153,7 @@ export function ActionBar({ employeeId, onEdit, onSave, onCancel }: ActionBarPro
                   disabled={isSaving || totalChanges === 0}
                   className="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-700 text-white text-sm font-semibold shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:hover:translate-y-0 disabled:shadow-none"
                 >
-                  <Save className="w-4 h-4" />
+                  <FloppyDisk className="w-4 h-4" />
                   <span>保存{totalChanges > 0 ? ` (${totalChanges})` : ''}</span>
                 </button>
               </>
